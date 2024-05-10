@@ -39,8 +39,8 @@
                               <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="JTFCurso1" alignment="0" min="-2" pref="202" max="-2" attributes="0"/>
-                                  <Component id="JTFIdade1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="JTFFase1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="JTFFase1" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="JTFIdade1" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -140,6 +140,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="JTFIdade1">
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JTFIdade1ActionPerformed"/>
       </Events>
@@ -167,6 +170,9 @@
     <Component class="javax.swing.JTextField" name="JTFCurso1">
     </Component>
     <Component class="javax.swing.JTextField" name="JTFFase1">
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonApagar">
       <Properties>
