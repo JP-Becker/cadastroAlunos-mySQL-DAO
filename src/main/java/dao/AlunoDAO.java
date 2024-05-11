@@ -85,39 +85,38 @@ public class AlunoDAO {
             // usando a classe resultSet para utilizar métodos getters referentes a tipos de dado do SQL
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_alunos WHERE id = " + id);
             res.next();
-            
-            
+
             objeto.setNome(res.getString("nome"));
             objeto.setIdade(res.getInt("idade"));
             objeto.setCurso(res.getString("curso"));
             objeto.setFase(res.getInt("fase"));
-            
+
             stmt.close();
-            
+
         } catch (SQLException e) {
             System.out.println("Erro: " + e);
         }
-        
+
         return objeto;
     }
-    
+
     // Método para cadastrar novo aluno
-    public boolean insertAlunoBD (Aluno objeto) {
+    public boolean insertAlunoBD(Aluno objeto) {
         String sql = "INSERT INTO tb_alunos(id, nome, idade, curso, fase) VALUES (?,?,?,?,?)";
-        
+
         try {
             //objeto que representa uma instrução SQL a ser executada
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
-            
+
             stmt.setInt(1, objeto.getId());
             stmt.setString(2, objeto.getNome());
             stmt.setInt(3, objeto.getIdade());
             stmt.setString(4, objeto.getCurso());
             stmt.setInt(5, objeto.getFase());
-            
+
             stmt.execute();
             stmt.close();
-            
+
             return true;
 
         } catch (SQLException e) {
@@ -126,17 +125,24 @@ public class AlunoDAO {
         }
     }
 
-    public static void setMinhaLista(ArrayList<Aluno> minhaLista) {
-        AlunoDAO.minhaLista = minhaLista;
+    public int maiorID() {
+        int maiorID = 0;
+
+        try {
+            Statement stmt = this.getConexao().createStatement();
+            ResultSet res = stmt.executeQuery("SELECT MAX(id) id FROM tb_alunos");
+
+            res.next();
+            maiorID = res.getInt("id");
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println("Erro: " + e);
+        }
+        
+        return maiorID;
     }
 
-    public static int maiorID() {
-        int maiorID = 0;
-        for (int i = 0; i < minhaLista.size(); i++) {
-            if (minhaLista.get(i).getId() > maiorID) {
-                maiorID = minhaLista.get(i).getId();
-            }
-        }
-        return maiorID;
+    public static void setMinhaLista(ArrayList<Aluno> minhaLista) {
+        AlunoDAO.minhaLista = minhaLista;
     }
 }

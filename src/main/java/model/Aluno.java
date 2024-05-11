@@ -4,6 +4,9 @@ import dao.AlunoDAO;
 import java.util.ArrayList;
 
 public class Aluno extends Pessoa {
+    
+    //instanciando a classe DAO para poder chamar os métodos
+    AlunoDAO objetoDAO = new AlunoDAO();
 
     // Atributos
     private String curso;
@@ -48,11 +51,8 @@ public class Aluno extends Pessoa {
     */
     
     // Retorna a Lista de Alunos(objetos)
-    public ArrayList<Aluno> getMinhaLista() {
-        
-        AlunoDAO objDAO = new AlunoDAO();
-        
-        return objDAO.getMinhaLista();
+    public ArrayList<Aluno> getMinhaLista() {        
+        return objetoDAO.getMinhaLista();
     }
 
     // Cadastra novo aluno
@@ -97,6 +97,6 @@ public class Aluno extends Pessoa {
     
     // retorna o maior ID da nossa base de dados
     public int maiorID(){
-        return AlunoDAO.maiorID();
+        return objetoDAO.maiorID();
     }   
 }
