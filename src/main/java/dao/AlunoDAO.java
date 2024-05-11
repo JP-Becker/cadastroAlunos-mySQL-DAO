@@ -1,12 +1,12 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import model.Aluno;
 
 public class AlunoDAO {
+
+    public static ArrayList<Aluno> minhaLista = new ArrayList<>();
 
     public Connection getConexao() {
         Connection connection = null;
@@ -45,10 +45,60 @@ public class AlunoDAO {
         }
     }
 
-    public static ArrayList<Aluno> minhaLista = new ArrayList<>();
+    public ArrayList<Aluno> getMinhaLista() {
+        minhaLista.clear();
 
-    public static ArrayList<Aluno> getMinhaLista() {
+        try {
+            Statement stmt = this.getConexao().createStatement();
+
+            // usando a classe resultSet para utilizar métodos getters do SQL
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_alunos");
+
+            while (res.next()) {
+                // vai buscar e retornar a lista com todos os objetos 'Aluno'
+                int id = res.getInt("id");
+                String nome = res.getString("nome");
+                int idade = res.getInt("idade");
+                String curso = res.getString("curso");
+                int fase = res.getInt("fase");
+
+                Aluno objeto = new Aluno(id, nome, idade, curso, fase);
+                minhaLista.add(objeto);
+
+                res.close();
+                stmt.close();
+            }
+        } catch (SQLException e) {
+            return null;
+        }
         return minhaLista;
+    }
+
+    // retorna o aluno procurado pela id
+    public Aluno carregaAluno(int id) {
+        Aluno objeto = new Aluno();
+        objeto.setId(id);
+
+        try {
+            Statement stmt = this.getConexao().createStatement();
+
+            // usando a classe resultSet para utilizar métodos getters referentes a tipos de dado do SQL
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_alunos WHERE id = " + id);
+            res.next();
+            
+            
+            objeto.setNome(res.getString("nome"));
+            objeto.setIdade(res.getInt("idade"));
+            objeto.setCurso(res.getString("curso"));
+            objeto.setFase(res.getInt("fase"));
+            
+            stmt.close();
+            
+        } catch (SQLException e) {
+            System.out.println("Erro: " + e);
+        }
+        
+        return objeto;
     }
 
     public static void setMinhaLista(ArrayList<Aluno> minhaLista) {

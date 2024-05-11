@@ -49,7 +49,10 @@ public class Aluno extends Pessoa {
     
     // Retorna a Lista de Alunos(objetos)
     public ArrayList<Aluno> getMinhaLista() {
-        return AlunoDAO.getMinhaLista();
+        
+        AlunoDAO objDAO = new AlunoDAO();
+        
+        return objDAO.getMinhaLista();
     }
 
     // Cadastra novo aluno
