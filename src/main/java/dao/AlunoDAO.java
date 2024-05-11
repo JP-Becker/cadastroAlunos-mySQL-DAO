@@ -141,7 +141,43 @@ public class AlunoDAO {
         
         return maiorID;
     }
+    
+    public boolean deleteAlunoBD(int id) {
+        try {
+            Statement stmt = this.getConexao().createStatement();
+            stmt.executeUpdate("DELETE FROM tb_alunos WHERE id = " + id);
+            stmt.close();
+            
+            return true;
 
+        } catch (SQLException e) {
+            System.out.println("Erro:" + e);
+            throw new RuntimeException(e);
+        }
+      
+    }
+
+    public boolean updateAlunoBD (Aluno objeto) {
+        String sql = "UPDATE tb_alunos set nome = ? ,idade = ? ,curso = ? ,fase = ? WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = this.getConexao().prepareStatement(sql);
+            
+            stmt.setString(1, objeto.getNome());
+            stmt.setInt(2, objeto.getIdade());
+            stmt.setString(3, objeto.getCurso());
+            stmt.setInt(4, objeto.getFase());
+            stmt.setInt(5, objeto.getId());
+            stmt.execute();
+            stmt.close();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Erro:" + e);
+        throw new RuntimeException(e);
+        }
+    }
+    
     public static void setMinhaLista(ArrayList<Aluno> minhaLista) {
         AlunoDAO.minhaLista = minhaLista;
     }
