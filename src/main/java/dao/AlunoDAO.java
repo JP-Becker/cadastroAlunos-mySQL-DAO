@@ -100,6 +100,31 @@ public class AlunoDAO {
         
         return objeto;
     }
+    
+    // Método para cadastrar novo aluno
+    public boolean insertAlunoBD (Aluno objeto) {
+        String sql = "INSERT INTO tb_alunos(id, nome, idade, curso, fase) VALUES (?,?,?,?,?)";
+        
+        try {
+            //objeto que representa uma instrução SQL a ser executada
+            PreparedStatement stmt = this.getConexao().prepareStatement(sql);
+            
+            stmt.setInt(1, objeto.getId());
+            stmt.setString(2, objeto.getNome());
+            stmt.setInt(3, objeto.getIdade());
+            stmt.setString(4, objeto.getCurso());
+            stmt.setInt(5, objeto.getFase());
+            
+            stmt.execute();
+            stmt.close();
+            
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Erro: " + e);
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void setMinhaLista(ArrayList<Aluno> minhaLista) {
         AlunoDAO.minhaLista = minhaLista;
